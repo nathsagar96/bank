@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "5533b2fc-df90-4959-b159-c903a042413e",
+		"name": "Bank Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fund Transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c538652a-468f-4940-8c1d-ffcda5df5720",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"SUCCESS\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"toAccount\": 2,\r\n    \"fromAccount\": 1,\r\n    \"amount\": 500\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/bank/transfer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Joint Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3574f150-32d0-46cb-a562-960250d365de",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"JOINT\",\r\n    \"balance\": 20000,\r\n    \"customers\": [\r\n        {\r\n            \"firstName\": \"Sagar\",\r\n            \"lastName\": \"Nath\",\r\n            \"email\":\"sagar.nath@example.com\"\r\n        },\r\n        {\r\n            \"firstName\": \"Deepak\",\r\n            \"lastName\": \"Nath\",\r\n            \"email\": \"deepak.nath@example.com\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/bank/account",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create SAVING / CURRENT ACCOUNT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a010f919-44de-4ac0-8643-58707d069e6d",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"CURRENT\",\r\n    \"balance\": 2000,\r\n    \"customers\": [\r\n        {\r\n            \"firstName\": \"Prakash\",\r\n            \"lastName\": \"Nath\",\r\n            \"email\":\"prakash.nath@example.com\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/bank/account",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Customer Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "279267ad-24c1-4452-9a6a-c2fbfce18836",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Pooja\",\r\n    \"lastName\": \"Nath\",\r\n    \"email\": \"bahavananath@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/bank/customer/:customerId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"customer",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Customer Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9abd4574-fa28-49f0-807b-26ef838f44f3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/bank/customer/:customerId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"customer",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Customer Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "985fec5f-cc7f-4609-a939-152150f0a914",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/bank/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account Balance ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f24f7b4-4ddc-430e-99f2-972b35db12cb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/bank/balance/:accountId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank",
+						"balance",
+						":accountId"
+					],
+					"variable": [
+						{
+							"key": "accountId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
